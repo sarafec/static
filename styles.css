@@ -1,0 +1,58 @@
+body {
+	font-family: 'Archivo', sans-serif;
+	margin: 5px;
+}
+
+.title {
+	font-size: 40px;
+	text-align: center;
+		font-family: 'Archivo', sans-serif;
+
+}
+
+.chart-container {
+	overflow: hidden;
+	height: 320px;
+	width: 80%;
+	padding-top: 10px;
+	margin-right: 10%;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	border-top: 1.5px solid #ccc;
+	border-right: 1.5px solid #ccc;
+	border-left: 1.5px solid #ccc;
+}
+
+.chart {
+}
+
+.bar:focus {
+	outline: 1px solid darkgrey;
+}
+
+.chart-library {
+	overflow-y: scroll;
+	height: 300px;
+	width: 81%;
+	margin-right: 10%;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	border-top: 1.5px solid #ccc;
+	border-bottom: 1.5px solid #ccc;
+}
+
+.chart-entry {
+	font-size: 18px;
+	border-left: 1.5px solid #ccc;
+	padding: 20px;
+	cursor: pointer;
+}
+
+.chart-entry:hover {
+	background-color: #F8F8F8;
+}
+
+.chart-entry:focus {
+	background-color: #e0e0e0;
+	outline:1px solid #ccc; 
+}

@@ -1,0 +1,91 @@
+[
+	{
+		"id": "001",
+		"title": "Intentional homicide in Northern Africa (2008)",
+		"type": "bar",
+		"colors": ["#541e75"],
+		"yaxis": "rate per 100,000 persons",
+		"source": "UNODC Homicide Statistics 2012",
+		"data": [
+			{"country": "Algeria", "value": "1.5"},
+			{"country": "Egypt", "value": "1.0"},
+			{"country": "Libya", "value": "2.9"},
+			{"country": "Morocco", "value": "1.4"},
+			{"country": "Sudan", "value": "24.2"},
+			{"country": "Tunisia", "value": "1.1"}
+		]
+	},
+	{
+		"id": "002",
+		"title": "Intentional homicide in Central Africa (2008)",
+		"type": "bar",
+		"colors": ["#1ba34c"],
+		"yaxis": "rate per 100,000 persons",
+		"source": "UNODC Homicide Statistics 2012",
+		"data": [
+			{"country": "Angola", "value": "19.0"},
+			{"country": "Cameroon", "value": "19.7"},
+			{"country": "CAR", "value": "29.3"},
+			{"country": "Chad", "value": "15.8"},
+			{"country": "DRC", "value": "21.7"},
+			{"country": "Congo", "value": "30.8"},
+			{"country": "Equatorial Guinea", "value": "20.7"},
+			{"country": "Gabon", "value": "13.8"},
+			{"country": "Sao Tome and Principe", "value": "1.9"}
+		]
+	},
+	{
+		"id": "003",
+		"title": "The duration of education in Northern Africa (2014)",
+		"type": "bar",
+		"colors": ["#603e94"],
+		"yaxis": "in years",
+		"source": "UNESCO Institute for Statistics",
+		"data": [
+			{"country": "Algeria", "value": "10.0"},
+			{"country": "Egypt", "value": "12.0"},
+			{"country": "Libya", "value": "9.0"},
+			{"country": "Morocco", "value": "9.0"},
+			{"country": "Sudan", "value": "8.0"},
+			{"country": "Tunisia", "value": "9.0"}
+		]
+	},
+	{
+		"id": "004",
+		"title": "Enrollment in private school in Southern Africa (2013)",
+		"type": "bar",
+		"colors": ["#8b3e94"],
+		"yaxis": "as percentage of total enrollment",
+		"source": "UNESCO Institute for Statistics",
+		"data": [
+			{"country": "Botswana", "value": "6.8"},
+			{"country": "Lesotho", "value": "1.28"},
+			{"country": "Namibia", "value": "4.67"},
+			{"country": "South Africa", "value": "3.83"},
+			{"country": "Swaziland", "value": "1.67"}
+		]
+	},
+	{
+		"id": "005",
+		"title": "Enrollment in private school in Western Africa (2014)",
+		"type": "bar",
+		"colors": ["#3e9460"],
+		"yaxis": "as percentage of total enrollment",
+		"source": "UNESCO Institute for Statistics",
+		"data": [
+			{"country": "Benin", "value": "18.48"},
+			{"country": "Burkina Faso", "value": "17.3"},
+			{"country": "Cape Verde", "value": "0.86"},
+			{"country": "Côte d'Ivoire", "value": "13.5"},
+			{"country": "Gambia", "value": "27.99"},
+			{"country": "Ghana", "value": "23.22"},
+			{"country": "Guinea", "value": "28.08"},
+			{"country": "Liberia", "value": "35.0"},
+			{"country": "Mali", "value": "35.29"},
+			{"country": "Mauritania", "value": "14.77"},
+			{"country": "Niger", "value": "3.41"},
+			{"country": "Senegal", "value": "15.38"},
+			{"country": "Togo", "value": "27.42"}
+		]
+	}
+]
