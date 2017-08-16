@@ -30,12 +30,16 @@ body {
 	outline: 1px solid darkgrey;
 }
 
+.line:focus {
+	outline: 1px solid darkgrey;
+}
+
 .chart-library {
 	overflow-y: scroll;
 	height: 300px;
-	width: 80%;
-	margin-right: 10%;
-	margin-left: 10%;
+	width: 82%;
+	margin-right: 9%;
+	margin-left: 9%;
 	margin-bottom: 20px;
 	border-top: 1.5px solid #ccc;
 	border-bottom: 1.5px solid #ccc;

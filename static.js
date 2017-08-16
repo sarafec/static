@@ -102,7 +102,9 @@ function routeToChartType(targetData, chartType){
 
 	if(chartType === "bar"){
 		createSimpleBarChart(targetData, svg, margin, width, height, g);
-	} 
+	} else if (chartType === "line"){
+		createMultiSeriesLineChart(targetData, svg, margin, width, height, g);
+	}
 }
 
 //create a bar chart
@@ -153,6 +155,57 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 				.style("font", "15px Archivo")
 				.text(dataValue);
 		})
+}
+
+function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
+
+	let chartSpecificData = targetData.data;
+
+	let x = d3.scaleTime().range([0, width]),
+		y = d3.scaleLinear().range([height, 0]);
+		let parseYear = d3.timeParse("%Y");
+	x.domain(d3.extent(targetData.data[0].values, function(d) { return parseYear(d.year)}))
+	y.domain([0, d3.max(targetData.data, function(d, i) { return +d.values[i].value; })]);
+
+	let line = d3.line()
+		.curve(d3.curveBasis)
+		.x(function(d) { return x(parseYear(d.year)); })
+		.y(function(d) { return y(d.value); });
+
+
+	g.append("g")
+		.attr("class", "axis axis-x")
+		.attr("transform", "translate(0," + height + ")")
+		.call(d3.axisBottom(x));
+
+	g.append("g")
+		.attr("class", "axis axis-y")
+		.call(d3.axisLeft(y))
+
+	let lines = g.selectAll(".paths")
+		.data(chartSpecificData)
+		.enter()
+		.append("g")
+		.attr("class", "paths");
+
+	lines.append("path")
+		.attr("class", "line")
+      	.attr("d", function(d) { return line(d.values); })
+      	.attr("tabindex", "0")
+		.style("stroke", targetData.colors[0])
+		.style("stroke-width", "2px")
+		.style("fill", "none");
+
+	lines.append("text")
+		.datum(function(d, i) { return {id: d.country, value: d.values[d.values.length - 1]}; })
+		.attr("transform", function(d, i) { return "translate(" + x(parseYear(d.value.year)) + "," + y(d.value.value) + ")"; })
+		.attr("x", -34)
+		.attr("y", -10)
+		.attr("dy", "0.35em")
+		.style("font", "11px sans-serif")
+		.text(function(d) { return d.id; });
+
+
 }
 
 
