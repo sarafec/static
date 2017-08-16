@@ -55,7 +55,7 @@
 		"title": "Enrollment in private school in Southern Africa (2013)",
 		"type": "bar",
 		"colors": ["#8b3e94"],
-		"yaxis": "as percentage of total enrollment",
+		"yaxis": "as a percentage of total enrollment",
 		"source": "UNESCO Institute for Statistics",
 		"data": [
 			{"country": "Botswana", "value": "6.8"},
@@ -70,7 +70,7 @@
 		"title": "Enrollment in private school in Western Africa (2014)",
 		"type": "bar",
 		"colors": ["#3e9460"],
-		"yaxis": "as percentage of total enrollment",
+		"yaxis": "as a percentage of total enrollment",
 		"source": "UNESCO Institute for Statistics",
 		"data": [
 			{"country": "Benin", "value": "18.48"},
