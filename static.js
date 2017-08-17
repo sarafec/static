@@ -126,6 +126,11 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 		.attr("dy", "0.5em")
 		.style("fill", "black");
 
+	g.append("g")
+		.attr("class", "axis axis-y")
+		.style("stroke-width", "0")
+		.call(d3.axisLeft(y))
+
 	g.selectAll(".bar")
 		.data(targetData.data)
 		.enter()
@@ -139,7 +144,7 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0]);
 
-	g.selectAll("text")
+	g.selectAll(".x-axis text")
 		.style("transform", "translateY(10px) rotate(-15deg)");
 
 	g.selectAll(".bar")
@@ -184,10 +189,12 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 	g.append("g")
 		.attr("class", "axis axis-x")
 		.attr("transform", "translate(0," + height + ")")
+		.style("stroke-width", ".1")
 		.call(d3.axisBottom(x));
 
 	g.append("g")
 		.attr("class", "axis axis-y")
+		.style("stroke-width", ".1")
 		.call(d3.axisLeft(y))
 
 	let lines = g.selectAll(".paths")
