@@ -102,9 +102,11 @@ function routeToChartType(targetData, chartType){
 
 	if(chartType === "bar"){
 		createSimpleBarChart(targetData, svg, margin, width, height, g);
+	} else if (chartType === "negbar"){
+		createNegativeBarChart(targetData, svg, margin, width, height, g);
 	} else if (chartType === "line"){
 		createMultiSeriesLineChart(targetData, svg, margin, width, height, g);
-	}
+	} 
 }
 
 //create a bar chart
@@ -157,6 +159,66 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 				.attr("class", "chart-label")
 				.attr("x", xVal)
 				.attr("y", yVal)
+				.style("font", "15px Archivo")
+				.text(dataValue);
+		})
+}
+
+function createNegativeBarChart(targetData, svg, margin, width, height, g) {
+	
+	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
+		y = d3.scaleLinear().rangeRound([0, height]);
+
+	x.domain(targetData.data.map(function(d) { return d.country; }));
+	y.domain([d3.max(targetData.data, function(d) { return +d.value; }), d3.min(targetData.data, function(d) { return +d.value; })]);
+
+	g.append("g")
+		.attr("class", "axis axis-y")
+		.attr("transform", "translate(0, 12)")
+		.style("stroke-width", "1")
+		.call(d3.axisLeft(y));
+
+	g.append("g")
+		.attr("class", "x-axis")
+		.style("stroke-width", "0")
+		.attr("transform", "translate(" + (height + -180) + ", 0)")
+	.call(d3.axisTop(x))
+		.append("text")
+		.attr("y", -45)
+		.attr("dy", "0.5em")
+		.style("fill", "black");
+
+	g.selectAll(".x-axis text")
+		.style("transform", "translateY(10px) rotate(-19deg)");
+
+	g.selectAll(".ticks")
+		.style("display", "none");
+
+	g.selectAll(".bar")
+		.data(targetData.data)
+		.enter()
+		.append("rect")
+		.attr("class", "bar")
+		.attr("x", function(d) { return x(d.country); })
+		.attr("y", 0)
+		.attr("data-value", function(d) { return d.value})
+		.attr("tabindex", 0)
+		.attr("height", function(d) { return y(d.value);})
+		.attr("transform", "translate(0, 12)")
+		.attr("width", x.bandwidth())
+		.style("fill", targetData.colors[0]);
+
+	g.selectAll(".bar")
+		.on("focus", function(){
+			let dataValue = d3.select(this).attr("data-value");
+			let xVal = d3.select(this).attr("x");
+			let yVal = d3.select(this).attr("height");
+
+			let dataLabel = g.append("text")
+				.attr("class", "chart-label")
+				.attr("x", xVal)
+				.attr("y", yVal)
+				.attr("transform", "translate(0, 26)")
 				.style("font", "15px Archivo")
 				.text(dataValue);
 		})

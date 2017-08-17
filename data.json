@@ -131,5 +131,32 @@
 			{"country": "Namibia", "values": [{"year": "1996", "value": "4"}, {"year": "2000", "value": "3"}, {"year": "2004", "value": "4"}]},
 			{"country": "South Africa", "values": [{"year": "1996", "value": "17"}, {"year": "2000", "value": "16"}, {"year": "2004", "value": "18"}]}
 		]
+	},
+	{
+		"id": "009",
+		"title": "Annual population growth in Eastern Africa (2012)",
+		"type": "negbar",
+		"colors": ["#2098ae"],
+		"yaxis": "as a percent of total population",
+		"source": "World Health Organization",
+		"data": [
+			{"country": "Burundi", "value": "-3.2"},
+			{"country": "Comoros", "value": "-2.5"},
+			{"country": "Djibouti", "value": "-1.5"},
+			{"country": "Eritrea", "value": "-3.3"},
+			{"country": "Ethiopia", "value": "-2.6"},
+			{"country": "Kenya", "value": "-2.7"},
+			{"country": "Madagascar", "value": "-2.8"},
+			{"country": "Malawi", "value": "-2.9"},
+			{"country": "Mauritius", "value": "-0.4"},
+			{"country": "Mozambique", "value": "-2.5"},
+			{"country": "Rwanda", "value": "-2.8"},
+			{"country": "Seychelles", "value": "0.0"},
+			{"country": "Somalia", "value": "-2.9"},
+			{"country": "Tanzania", "value": "-3.0"},
+			{"country": "Uganda", "value": "-3.4"},
+			{"country": "Zambia", "value": "-3.2"},
+			{"country": "Zimbabwe", "value": "-2.7"}
+		]
 	}
 ]
