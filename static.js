@@ -161,11 +161,19 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 
 	let chartSpecificData = targetData.data;
 
+	let max = d3.max(d3.entries(chartSpecificData), function(d) {
+		return d3.max(d3.entries(d.value), function(e, i) {
+			if(i === 1){
+      			return d3.max(e.value, function(f) { return +f.value; });
+      		}
+  		});
+	});
+
 	let x = d3.scaleTime().range([0, width]),
 		y = d3.scaleLinear().range([height, 0]);
 		let parseYear = d3.timeParse("%Y");
 	x.domain(d3.extent(targetData.data[0].values, function(d) { return parseYear(d.year)}))
-	y.domain([0, d3.max(targetData.data, function(d, i) { return +d.values[i].value; })]);
+	y.domain([0, max]);
 
 	let line = d3.line()
 		.curve(d3.curveBasis)
@@ -199,7 +207,7 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 	lines.append("text")
 		.datum(function(d, i) { return {id: d.country, value: d.values[d.values.length - 1]}; })
 		.attr("transform", function(d, i) { return "translate(" + x(parseYear(d.value.year)) + "," + y(d.value.value) + ")"; })
-		.attr("x", -34)
+		.attr("x", -40)
 		.attr("y", -10)
 		.attr("dy", "0.35em")
 		.style("font", "11px sans-serif")

@@ -100,5 +100,36 @@
 			{"country": "Morocco", "values": [{"year": "2010", "value": "19"}, {"year": "2011", "value": "24"}, {"year": "2012", "value": "22"}, {"year": "2013", "value": "22"}]},
 			{"country": "Tunisia", "values": [{"year": "2010", "value": "16"}, {"year": "2011", "value": "11"}, {"year": "2012", "value": "8"}, {"year": "2013", "value": "8"}]}
 		]
+	},
+	{
+		"id": "007",
+		"title": "Number of mental hospitals in Central Africa (2011)",
+		"type": "bar",
+		"colors": ["#ae4f6b"],
+		"yaxis": "per 100,000 persons",
+		"source": "UNODC Homicide Statistics 2012",
+		"data": [
+			{"country": "Angola", "value": "0.01"},
+			{"country": "Cameroon", "value": "0.01"},
+			{"country": "CAR", "value": "0"},
+			{"country": "Chad", "value": "0"},
+			{"country": "DRC", "value": "0.01"},
+			{"country": "Congo", "value": "0"},
+			{"country": "Gabon", "value": "0.07"},
+			{"country": "Sao Tome and Principe", "value": "0.6"}
+		]
+	},
+	{
+		"id": "008",
+		"title": "Number of daily newspapers in Southern Africa",
+		"type": "line",
+		"colors": ["#81569a"],
+		"yaxis": "in 1996, 2000, and 2004",
+		"source": "UNESCO Institute for Statistics",
+		"data": [
+			{"country": "Botswana", "values": [{"year": "1996", "value": "1"}, {"year": "2000", "value": "1"}, {"year": "2004", "value": "2"}]},
+			{"country": "Namibia", "values": [{"year": "1996", "value": "4"}, {"year": "2000", "value": "3"}, {"year": "2004", "value": "4"}]},
+			{"country": "South Africa", "values": [{"year": "1996", "value": "17"}, {"year": "2000", "value": "16"}, {"year": "2004", "value": "18"}]}
+		]
 	}
 ]
