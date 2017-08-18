@@ -5,7 +5,7 @@
 		"type": "bar",
 		"colors": ["#541e75"],
 		"yaxis": "rate per 100,000 persons",
-		"source": "UNODC Homicide Statistics 2012",
+		"source": "UNODC Homicide Statistics",
 		"data": [
 			{"country": "Algeria", "value": "1.5"},
 			{"country": "Egypt", "value": "1.0"},
@@ -19,9 +19,9 @@
 		"id": "002",
 		"title": "Intentional homicide in Central Africa (2008)",
 		"type": "bar",
-		"colors": ["#1ba34c"],
+		"colors": ["#4c4c9f"],
 		"yaxis": "rate per 100,000 persons",
-		"source": "UNODC Homicide Statistics 2012",
+		"source": "UNODC Homicide Statistics",
 		"data": [
 			{"country": "Angola", "value": "19.0"},
 			{"country": "Cameroon", "value": "19.7"},
@@ -38,7 +38,7 @@
 		"id": "003",
 		"title": "The duration of education in Northern Africa (2014)",
 		"type": "bar",
-		"colors": ["#603e94"],
+		"colors": ["#7d315b"],
 		"yaxis": "in years",
 		"source": "UNESCO Institute for Statistics",
 		"data": [
@@ -176,6 +176,40 @@
 			{"country": "Guinea", "value": "34.1"},
 			{"country": "Niger", "value": "35.6"},
 			{"country": "Togo", "value": "47.16"}
+		]
+	},
+	{
+		"id": "011",
+		"title": "Dentistry density in Central Africa (2004)",
+		"type": "bar",
+		"colors": ["#76a5a8"],
+		"yaxis": "personnel per 1,000 persons",
+		"source": "World Health Organization",
+		"data": [
+			{"country": "Angola", "value": "0.016"},
+			{"country": "Cameroon", "value": "0.009"},
+			{"country": "CAR", "value": "0.003"},
+			{"country": "Chad", "value": "0.002"},
+			{"country": "DRC", "value": "0.003"},
+			{"country": "Congo", "value": "0.003"},
+			{"country": "Equatorial Guinea", "value": "0.03"},
+			{"country": "Gabon", "value": "0.049"},
+			{"country": "Sao Tome and Principe", "value": "0.067"}
+		]
+	},
+	{
+		"id": "012",
+		"title": "Dentistry density in Northern Africa (2004)",
+		"type": "bar",
+		"colors": ["#641e44"],
+		"yaxis": "personnel per 1,000 persons",
+		"source": "World Health Organization",
+		"data": [
+			{"country": "Egypt", "value": "0.135"},
+			{"country": "Libya", "value": "0.15"},
+			{"country": "Morocco", "value": "0.1"},
+			{"country": "Sudan", "value": "0.032"},
+			{"country": "Tunisia", "value": "0.247"}
 		]
 	}
 ]
