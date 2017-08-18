@@ -158,5 +158,24 @@
 			{"country": "Zambia", "value": "-3.2"},
 			{"country": "Zimbabwe", "value": "-2.7"}
 		]
+	},
+	{
+		"id": "010",
+		"title": "Primary school drop-out rate Western Africa (2013)",
+		"type": "bar",
+		"colors": ["#771d46"],
+		"yaxis": "as a percentage",
+		"source": "UNESCO Institute for Statistics",
+		"data": [
+			{"country": "Benin", "value": "46.6"},
+			{"country": "Burkina Faso", "value": "30.5"},
+			{"country": "Cape Verde", "value": "9.36"},
+			{"country": "Côte d'Ivoire", "value": "25.96"},
+			{"country": "Gambia", "value": "22.68"},
+			{"country": "Ghana", "value": "16.28"},
+			{"country": "Guinea", "value": "34.1"},
+			{"country": "Niger", "value": "35.6"},
+			{"country": "Togo", "value": "47.16"}
+		]
 	}
 ]
