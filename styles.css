@@ -68,6 +68,6 @@ body {
 
 @media screen and (max-width: 768px){
 	.chart-library{
-		height: 700px;
+		height: 600px;
 	}
 }
