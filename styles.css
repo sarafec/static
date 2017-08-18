@@ -64,3 +64,10 @@ body {
 	background-color: #e0e0e0;
 	outline:1px solid #ccc; 
 }
+
+
+@media screen and (max-width: 768px){
+	.chart-library{
+		height: 700px;
+	}
+}
