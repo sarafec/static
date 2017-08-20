@@ -1,5 +1,5 @@
 ### Static  
   
-This project contains a collection of static, but reusable d3.js charts. The aim is to define a variety of charting functions that can be used for similar datasets.  
+This project contains a collection of static and reusable d3.js charts. The aim is to define reusable charting functions that can be used for similar datasets.  
   
 Charts supported: positive vertical bar charts, negative vertical bar charts, and multiseries line charts.
