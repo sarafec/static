@@ -174,17 +174,17 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 
 	g.append("g")
 		.attr("class", "axis axis-y")
-		.attr("transform", "translate(0, 12)")
+		.attr("transform", "translate(0, 20)")
 		.style("stroke-width", "1")
 		.call(d3.axisLeft(y));
 
 	g.append("g")
 		.attr("class", "x-axis")
 		.style("stroke-width", "0")
-		.attr("transform", "translate(" + (height + -180) + ", 0)")
+		.attr("transform", "translate(" + (height + -175) + ", 7)")
 	.call(d3.axisTop(x))
 		.append("text")
-		.attr("y", -45)
+		.attr("y", -35)
 		.attr("dy", "0.5em")
 		.style("fill", "black");
 
@@ -204,7 +204,7 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 		.attr("data-value", function(d) { return d.value})
 		.attr("tabindex", 0)
 		.attr("height", function(d) { return y(d.value);})
-		.attr("transform", "translate(0, 12)")
+		.attr("transform", "translate(0, 20)")
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0]);
 
@@ -276,7 +276,7 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 	lines.append("text")
 		.datum(function(d, i) { return {id: d.country, value: d.values[d.values.length - 1]}; })
 		.attr("transform", function(d, i) { return "translate(" + x(parseYear(d.value.year)) + "," + y(d.value.value) + ")"; })
-		.attr("x", -40)
+		.attr("x", -42)
 		.attr("y", -10)
 		.attr("dy", "0.35em")
 		.style("font", "11px sans-serif")
@@ -314,7 +314,7 @@ function createSource(targetData, svg, margin, width, height, g){
 		.attr("class", "source");
 	source.append("text")
 		.attr("x", 10)
-		.attr("y", 300)
+		.attr("y", 310)
 		.attr("text-anchor", "left")
 		.style("font", "10px monospace")
 		.text("Source: " + targetData.source);
