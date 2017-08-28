@@ -11,8 +11,8 @@ body {
 }
 
 .chart-container {
-	overflow: hidden;
-	height: 320px;
+	display: inline-block;
+	height: 30%;
 	width: 80%;
 	padding-top: 10px;
 	margin-right: 10%;

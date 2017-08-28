@@ -92,8 +92,8 @@ function removeOldData(){
 function routeToChartType(targetData, chartType){
 	let svg = d3.select(".chart"),
 		margin = {top: 70, right: 20, bottom: 40, left: 50},
-		width = svg.attr("width") - margin.left - margin.right,
-		height = svg.attr("height") - margin.top - margin.bottom,
+		width = 600 - margin.left - margin.right,
+		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
 	createSource(targetData, svg, margin, width, height, g);
