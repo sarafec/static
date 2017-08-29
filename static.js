@@ -184,7 +184,7 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 		.attr("transform", "translate(" + (height + -175) + ", 7)")
 	.call(d3.axisTop(x))
 		.append("text")
-		.attr("y", -35)
+		.attr("y", -15)
 		.attr("dy", "0.5em")
 		.style("fill", "black");
 
@@ -218,7 +218,7 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 				.attr("class", "chart-label")
 				.attr("x", xVal)
 				.attr("y", yVal)
-				.attr("transform", "translate(0, 26)")
+				.attr("transform", "translate(0, 36)")
 				.style("font", "15px Archivo")
 				.text(dataValue);
 		})
