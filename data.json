@@ -211,5 +211,19 @@
 			{"country": "Sudan", "value": "0.032"},
 			{"country": "Tunisia", "value": "0.247"}
 		]
+	},
+	{
+		"id": "013",
+		"title": "Literacy rate in Western Africa (2000)",
+		"type": "popbar",
+		"colors": ["#722f37", "#5ecfb9", "#9ad6e3"],
+		"yaxis": "of 15-25 year olds as a percentage",
+		"source": "United Nations Statistics Division",
+		"data": [
+			{"country": "Côte d'Ivoire", "values": [{"gender": "male", "value": "70.8"}, {"gender": "female", "value": "52.1"}]},
+			{"country": "Ghana", "values": [{"gender": "male", "value": "75.9"}, {"gender": "female", "value": "65.5"}]},
+			{"country": "Mauritania", "values": [{"gender": "male", "value": "67.7"}, {"gender": "female", "value": "55.5"}]},
+			{"country": "Togo", "values": [{"gender": "male", "value": "83.7"}, {"gender": "female", "value": "63.6"}]}
+		]
 	}
 ]

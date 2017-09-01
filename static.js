@@ -106,8 +106,10 @@ function routeToChartType(targetData, chartType){
 		createNegativeBarChart(targetData, svg, margin, width, height, g);
 	} else if (chartType === "line"){
 		createMultiSeriesLineChart(targetData, svg, margin, width, height, g);
-	} 
-}
+	} else if (chartType === "popbar"){
+		createPopulationBarChart(targetData, svg, margin, width, height, g);
+	}
+};
 
 //create a bar chart
 function createSimpleBarChart(targetData, svg, margin, width, height, g){
@@ -222,6 +224,108 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 				.style("font", "15px Archivo")
 				.text(dataValue);
 		})
+}
+
+function createPopulationBarChart(targetData, svg, margin, width, height, g){
+
+	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
+			y = d3.scaleLinear().rangeRound([height, 0]);
+	x.domain(targetData.data.map(function(d) { return d.country; }));
+	y.domain([0, 100]);
+
+	//define x axis and append to svg
+	g.append("g")
+		.attr("class", "x-axis")
+		.attr("transform", "translate(0," + height + ")")
+	.call(d3.axisBottom(x))
+		.append("text")
+		.attr("y", 30)
+		.attr("x", 400)
+		.attr("dy", "0.5em")
+		.style("fill", "black");
+
+	g.append("g")
+		.attr("class", "axis axis-y")
+		.style("stroke-width", "0")
+		.call(d3.axisLeft(y));
+
+	g.selectAll(".bar2")
+		.data(targetData.data)
+		.enter()
+		.append("rect")
+		.attr("class", "bar2")
+		.attr("x", function(d) { return x(d.country); })
+		.attr("y", function(d, i) { return y(evaluateSecondaryPopVals(i)); })
+		.attr("tabindex", 0)
+		.attr("height", function(d, i) { return height - y(evaluateSecondaryPopVals(i)) ;})
+		.attr("width", x.bandwidth())
+		.style("fill", function(d, i) { return evaluateSecondaryColorVals(i) });
+
+	g.selectAll(".bar1")
+		.data(targetData.data)
+		.enter()
+		.append("rect")
+		.attr("class", "bar1")
+		.attr("x", function(d) { return x(d.country); })
+		.attr("y", function(d, i) { return y(evaluatePrimaryPopVals(i)); })
+		.attr("height", function(d, i) { return height - y(evaluatePrimaryPopVals(i)) ;})
+		.attr("width", x.bandwidth())
+		.style("fill", targetData.colors[0]);
+
+	let legend = g.append("g")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", 10)
+				.attr("text-anchor", "end")
+				.selectAll("g")
+				.data([{gender: "Male", color: targetData.colors[1]}, 
+						{gender: "Female", color: targetData.colors[2]}, 
+						{gender: "All", color: targetData.colors[0]}])
+				.enter()
+				.append("g")
+				.attr("transform", function(d, i) { return "translate(-10," + ( -45 + i * 20) + ")"; })
+			legend.append("rect")
+				.attr("x", width - 19)
+				.attr("width", 19)
+				.attr("height", 19)
+				.attr("fill", function(d) { return d.color });
+			legend.append("text")
+				.attr("x", width - 24)
+				.attr("y", 9.5)
+				.attr("dy", "0.32em")
+				.text(function(d) { return d.gender; }); 
+	
+
+	//evaluating population chart values
+	function evaluatePrimaryPopVals(val) {
+		if(targetData.data[val].values[0].value > targetData.data[val].values[1].value){
+			return targetData.data[val].values[1].value;
+		} else if(targetData.data[val].values[0].value < targetData.data[val].values[1].value){
+			return targetData.data[val].values[0].value;
+		} else if(targetData.data[val].values[0].value === targetData.data[val].values[1].value){
+			return targetData.data[val].values[0].value;
+		}
+	}
+
+	function evaluateSecondaryPopVals(val) {
+		if(targetData.data[val].values[0].value > targetData.data[val].values[1].value){
+			return targetData.data[val].values[0].value;
+		} else if(targetData.data[val].values[0].value < targetData.data[val].values[1].value){
+			return targetData.data[val].values[1].value;
+		} else if(targetData.data[val].values[0].value === targetData.data[val].values[1].value){
+			return 0;
+		}
+	}
+
+	function evaluateSecondaryColorVals(val) {
+		if(targetData.data[val].values[0].value > targetData.data[val].values[1].value){
+			return targetData.colors[1];
+		} else if(targetData.data[val].values[0].value < targetData.data[val].values[1].value){
+			return targetData.colors[2];
+		} else if(targetData.data[val].values[0].value === targetData.data[val].values[1].value){
+			return targetData.colors[0];
+		}
+	}
+
 }
 
 function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
