@@ -225,5 +225,32 @@
 			{"country": "Mauritania", "values": [{"gender": "male", "value": "67.7"}, {"gender": "female", "value": "55.5"}]},
 			{"country": "Togo", "values": [{"gender": "male", "value": "83.7"}, {"gender": "female", "value": "63.6"}]}
 		]
+	},
+	{
+		"id": "014",
+		"title": "Median Age in Eastern Africa (2012)",
+		"type": "bar",
+		"colors": ["#00bec9"],
+		"yaxis": "in years",
+		"source": "World Health Organization",
+		"data": [
+			{"country": "Burundi", "value": "17.6"},
+			{"country": "Comoros", "value": "19.1"},
+			{"country": "Djibouti", "value": "22.5"},
+			{"country": "Eritrea", "value": "18.4"},
+			{"country": "Ethiopia", "value": "17.9"},
+			{"country": "Kenya", "value": "18.7"},
+			{"country": "Madagascar", "value": "18.3"},
+			{"country": "Malawi", "value": "17.1"},
+			{"country": "Mauritius", "value": "34.2"},
+			{"country": "Mozambique", "value": "17.3"},
+			{"country": "Rwanda", "value": "18.1"},
+			{"country": "Seychelles", "value": "32.3"},
+			{"country": "Somalia", "value": "16.3"},
+			{"country": "Tanzania", "value": "17.5"},
+			{"country": "Uganda", "value": "15.7"},
+			{"country": "Zambia", "value": "16.5"},
+			{"country": "Zimbabwe", "value": "19.2"}
+		]
 	}
 ]
