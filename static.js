@@ -7,23 +7,23 @@ let getData = function(){
 	var request = new XMLHttpRequest();
 	request.open('GET', 'data.json', true);
 	request.onload = function() {
-	  if (request.status >= 200 && request.status < 400) {
-	    var data = JSON.parse(request.responseText);
-	    chartData = data;
-	    return createChartEntryList(data);
-	  } else {
-	    // We reached our target server, but it returned an error
-	    console.log("error!");
+		if (request.status >= 200 && request.status < 400) {
+			var data = JSON.parse(request.responseText);
+			chartData = data;
+			return createChartEntryList(data);
+		} else {
+			// We reached our target server, but it returned an error
+			console.log("error!");
 
-	  }
-	};
+	}
+};
 	request.onerror = function() {
-	  // There was a connection error of some sort
-	  console.log("connection error!");
+		// There was a connection error of some sort
+		console.log("connection error!");
 	};
 
 	request.send();
-}
+};
 
 //create chart list on landing
 function createChartEntryList(data){
@@ -56,7 +56,7 @@ function createChartEntryList(data){
 		}
 	});
 
-};
+}
 
 
 //kick off chart creation
@@ -64,7 +64,7 @@ function assessChartType(evt){
 	//filter data to click data
 	let targetData = chartData.filter(function(entry){
 		return evt.target.attributes[1].nodeValue === entry.id;
-	})
+	});
 
 	//don't reload previous chart
 	if(currentChart === targetData[0].id){
@@ -90,29 +90,31 @@ function removeOldData(){
 
 //route to chart type
 function routeToChartType(targetData, chartType){
+
+	createSource(targetData);
+	createTitle(targetData);
+	createSubtitle(targetData);
+
+	if(chartType === "bar"){
+		createSimpleBarChart(targetData);
+	} else if (chartType === "negbar"){
+		createNegativeBarChart(targetData);
+	} else if (chartType === "line"){
+		createMultiSeriesLineChart(targetData);
+	} else if (chartType === "popbar"){
+		createPopulationBarChart(targetData);
+	}
+};
+
+//create a bar chart
+function createSimpleBarChart(targetData){
+	//define chart constants
 	let svg = d3.select(".chart"),
 		margin = {top: 70, right: 20, bottom: 40, left: 50},
 		width = 600 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
-	createSource(targetData, svg, margin, width, height, g);
-	createTitle(targetData, svg, margin, width, height, g);
-	createSubtitle(targetData, svg, margin, width, height, g);
-
-	if(chartType === "bar"){
-		createSimpleBarChart(targetData, svg, margin, width, height, g);
-	} else if (chartType === "negbar"){
-		createNegativeBarChart(targetData, svg, margin, width, height, g);
-	} else if (chartType === "line"){
-		createMultiSeriesLineChart(targetData, svg, margin, width, height, g);
-	} else if (chartType === "popbar"){
-		createPopulationBarChart(targetData, svg, margin, width, height, g);
-	}
-};
-
-//create a bar chart
-function createSimpleBarChart(targetData, svg, margin, width, height, g){
 	//define scales
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 			y = d3.scaleLinear().rangeRound([height, 0]);
@@ -133,7 +135,7 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 	g.append("g")
 		.attr("class", "axis axis-y")
 		.style("stroke-width", "0")
-		.call(d3.axisLeft(y))
+		.call(d3.axisLeft(y));
 
 	g.selectAll(".bar")
 		.data(targetData.data)
@@ -142,7 +144,7 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 		.attr("class", "bar")
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", function(d) { return y(d.value); })
-		.attr("data-value", function(d) { return d.value})
+		.attr("data-value", function(d) { return d.value; })
 		.attr("tabindex", 0)
 		.attr("height", function(d) { return height - y(d.value) ;})
 		.attr("width", x.bandwidth())
@@ -163,11 +165,19 @@ function createSimpleBarChart(targetData, svg, margin, width, height, g){
 				.attr("y", yVal)
 				.style("font", "15px Archivo")
 				.text(dataValue);
-		})
+		});
 }
 
-function createNegativeBarChart(targetData, svg, margin, width, height, g) {
-	
+//create bar chart for only negative values
+function createNegativeBarChart(targetData) {
+	//define chart constants
+	let svg = d3.select(".chart"),
+		margin = {top: 70, right: 20, bottom: 40, left: 50},
+		width = 600 - margin.left - margin.right,
+		height = 300 - margin.top - margin.bottom,
+		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
+
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 		y = d3.scaleLinear().rangeRound([0, height]);
 
@@ -203,7 +213,7 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 		.attr("class", "bar")
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", 0)
-		.attr("data-value", function(d) { return d.value})
+		.attr("data-value", function(d) { return d.value; })
 		.attr("tabindex", 0)
 		.attr("height", function(d) { return y(d.value);})
 		.attr("transform", "translate(0, 20)")
@@ -223,13 +233,21 @@ function createNegativeBarChart(targetData, svg, margin, width, height, g) {
 				.attr("transform", "translate(0, 36)")
 				.style("font", "15px Archivo")
 				.text(dataValue);
-		})
+		});
 }
 
-function createPopulationBarChart(targetData, svg, margin, width, height, g){
+//create chart that calculates and stacks the larger value - only works for binary inputs, such as male and female
+function createPopulationBarChart(targetData){
+	//define chart constants
+	let svg = d3.select(".chart"),
+		margin = {top: 70, right: 20, bottom: 40, left: 50},
+		width = 600 - margin.left - margin.right,
+		height = 300 - margin.top - margin.bottom,
+		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 			y = d3.scaleLinear().rangeRound([height, 0]);
+	
 	x.domain(targetData.data.map(function(d) { return d.country; }));
 	y.domain([0, 100]);
 
@@ -257,9 +275,9 @@ function createPopulationBarChart(targetData, svg, margin, width, height, g){
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", function(d, i) { return y(evaluateSecondaryPopVals(i)); })
 		.attr("tabindex", 0)
-		.attr("height", function(d, i) { return height - y(evaluateSecondaryPopVals(i)) ;})
+		.attr("height", function(d, i) { return height - y(evaluateSecondaryPopVals(i)); })
 		.attr("width", x.bandwidth())
-		.style("fill", function(d, i) { return evaluateSecondaryColorVals(i) });
+		.style("fill", function(d, i) { return evaluateSecondaryColorVals(i); });
 
 	g.selectAll(".bar1")
 		.data(targetData.data)
@@ -273,29 +291,30 @@ function createPopulationBarChart(targetData, svg, margin, width, height, g){
 		.style("fill", targetData.colors[0]);
 
 	let legend = g.append("g")
-				.attr("font-family", "sans-serif")
-				.attr("font-size", 10)
-				.attr("text-anchor", "end")
-				.selectAll("g")
-				.data([{gender: "Male", color: targetData.colors[1]}, 
-						{gender: "Female", color: targetData.colors[2]}, 
-						{gender: "All", color: targetData.colors[0]}])
-				.enter()
-				.append("g")
-				.attr("transform", function(d, i) { return "translate(-10," + ( -45 + i * 20) + ")"; })
-			legend.append("rect")
-				.attr("x", width - 19)
-				.attr("width", 19)
-				.attr("height", 19)
-				.attr("fill", function(d) { return d.color });
-			legend.append("text")
-				.attr("x", width - 24)
-				.attr("y", 9.5)
-				.attr("dy", "0.32em")
-				.text(function(d) { return d.gender; }); 
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 10)
+		.attr("text-anchor", "end")
+		.selectAll("g")
+		.data([{gender: "Male", color: targetData.colors[1]}, 
+				{gender: "Female", color: targetData.colors[2]}, 
+				{gender: "All", color: targetData.colors[0]}])
+		.enter()
+		.append("g")
+		.attr("transform", function(d, i) { return "translate(-10," + ( -45 + i * 20) + ")"; });
+	legend.append("rect")
+		.attr("x", width - 19)
+		.attr("width", 19)
+		.attr("height", 19)
+		.attr("fill", function(d) { return d.color; });
+	legend.append("text")
+		.attr("x", width - 24)
+		.attr("y", 9.5)
+		.attr("dy", "0.32em")
+		.text(function(d) { return d.gender; });
 	
 
 	//evaluating population chart values
+	//note - can we simplify this?
 	function evaluatePrimaryPopVals(val) {
 		if(targetData.data[val].values[0].value > targetData.data[val].values[1].value){
 			return targetData.data[val].values[1].value;
@@ -328,22 +347,33 @@ function createPopulationBarChart(targetData, svg, margin, width, height, g){
 
 }
 
-function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
+//create line chart for multiple entries - such as countries
+//note: currently defined to output as a single color defined in the data file
+function createMultiSeriesLineChart(targetData){
+	//define chart constants
+	let svg = d3.select(".chart"),
+		margin = {top: 70, right: 20, bottom: 40, left: 50},
+		width = 600 - margin.left - margin.right,
+		height = 300 - margin.top - margin.bottom,
+		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
 
 	let chartSpecificData = targetData.data;
 
 	let max = d3.max(d3.entries(chartSpecificData), function(d) {
 		return d3.max(d3.entries(d.value), function(e, i) {
 			if(i === 1){
-      			return d3.max(e.value, function(f) { return +f.value; });
-      		}
-  		});
+				return d3.max(e.value, function(f) { return +f.value; });
+			}
+		});
 	});
 
 	let x = d3.scaleTime().range([0, width]),
 		y = d3.scaleLinear().range([height, 0]);
-		let parseYear = d3.timeParse("%Y");
-	x.domain(d3.extent(targetData.data[0].values, function(d) { return parseYear(d.year)}))
+	
+	let parseYear = d3.timeParse("%Y");
+
+	x.domain(d3.extent(targetData.data[0].values, function(d) { return parseYear(d.year); }));
 	y.domain([0, max]);
 
 	let line = d3.line()
@@ -361,7 +391,7 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 	g.append("g")
 		.attr("class", "axis axis-y")
 		.style("stroke-width", ".1")
-		.call(d3.axisLeft(y))
+		.call(d3.axisLeft(y));
 
 	let lines = g.selectAll(".paths")
 		.data(chartSpecificData)
@@ -371,8 +401,8 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 
 	lines.append("path")
 		.attr("class", "line")
-      	.attr("d", function(d) { return line(d.values); })
-      	.attr("tabindex", "0")
+		.attr("d", function(d) { return line(d.values); })
+		.attr("tabindex", "0")
 		.style("stroke", targetData.colors[0])
 		.style("stroke-width", "2px")
 		.style("fill", "none");
@@ -385,12 +415,16 @@ function createMultiSeriesLineChart(targetData, svg, margin, width, height, g){
 		.attr("dy", "0.35em")
 		.style("font", "11px sans-serif")
 		.text(function(d) { return d.id; });
-
-
 }
 
 
-function createTitle(targetData, svg, margin, width, height, g){
+//create title elemment for selected chart
+function createTitle(targetData){
+	//define chart constants
+	let svg = d3.select(".chart"),
+	margin = {top: 70, right: 20, bottom: 40, left: 50},
+	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
 	let title = svg.append("g")
 		.attr("class", "chart-title");
 	title.append("text")
@@ -401,7 +435,13 @@ function createTitle(targetData, svg, margin, width, height, g){
 		.text(targetData.title);
 }
 
-function createSubtitle(targetData, svg, margin, width, height, g){
+//create subtitle element for selected chart
+function createSubtitle(targetData){
+	//define chart constants
+	let svg = d3.select(".chart"),
+	margin = {top: 70, right: 20, bottom: 40, left: 50},
+	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
 	let subtitle = svg.append("g")
 		.attr("class", "chart-subtitle");
 	subtitle.append("text")
@@ -413,7 +453,13 @@ function createSubtitle(targetData, svg, margin, width, height, g){
 		.text(targetData.yaxis);
 }
 
-function createSource(targetData, svg, margin, width, height, g){
+//create source element for selected chart
+function createSource(targetData){
+	//define chart constants
+	let svg = d3.select(".chart"),
+	margin = {top: 70, right: 20, bottom: 40, left: 50},
+	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
 	let source = svg.append("g")
 		.attr("class", "source");
 	source.append("text")
@@ -424,4 +470,10 @@ function createSource(targetData, svg, margin, width, height, g){
 		.text("Source: " + targetData.source);
 }
 
+//kick off xhr
 getData();
+
+//potential features
+// -- add animations for chart creation, how costly would this be, esp for mobile
+// -- add multiple colors for multiseries charts
+// -- add routing? dabble with a new routing library i.e. crossroads.js
