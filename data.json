@@ -216,7 +216,7 @@
 		"id": "013",
 		"title": "Literacy rate in Western Africa (2000)",
 		"type": "popbar",
-		"colors": ["#722f37", "#5ecfb9", "#9ad6e3"],
+		"colors": ["#276337", "#0c508b", "#5a958d"],
 		"yaxis": "of 15-25 year olds as a percentage",
 		"source": "United Nations Statistics Division",
 		"data": [
