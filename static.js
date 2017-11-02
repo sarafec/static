@@ -12,13 +12,11 @@ let getData = function(){
 			chartData = data;
 			return createChartEntryList(data);
 		} else {
-			// We reached our target server, but it returned an error
 			console.log("error!");
 
 	}
 };
 	request.onerror = function() {
-		// There was a connection error of some sort
 		console.log("connection error!");
 	};
 
@@ -473,7 +471,7 @@ function createSource(targetData){
 //kick off xhr
 getData();
 
-//potential features
-// -- add animations for chart creation, how costly would this be, esp for mobile
-// -- add multiple colors for multiseries charts
-// -- add routing? dabble with a new routing library i.e. crossroads.js
+// todo
+// 1 - add transitions
+// 2 - add tooltip, remove focus/click event
+// 3 - add new data from un data
