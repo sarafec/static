@@ -3,24 +3,11 @@ let chartData;
 let currentChart;
 
 //load data
-let getData = function(){
-	var request = new XMLHttpRequest();
-	request.open('GET', 'data.json', true);
-	request.onload = function() {
-		if (request.status >= 200 && request.status < 400) {
-			var data = JSON.parse(request.responseText);
+function getData() {
+	d3.json('data.json', function(data){
 			chartData = data;
 			return createChartEntryList(data);
-		} else {
-			console.log("error!");
-
-	}
-};
-	request.onerror = function() {
-		console.log("connection error!");
-	};
-
-	request.send();
+	})
 };
 
 //create chart list on landing
@@ -66,7 +53,6 @@ function assessChartType(evt){
 
 	//don't reload previous chart
 	if(currentChart === targetData[0].id){
-		console.log("hey this is the same chart");
 	//reload new chart
 	} else {
 		currentChart = evt.target.attributes[1].nodeValue;
@@ -474,4 +460,4 @@ getData();
 // todo
 // 1 - add transitions
 // 2 - add tooltip, remove focus/click event
-// 3 - add new data from un data
+// 3 - fix chart removal process
