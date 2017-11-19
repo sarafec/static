@@ -204,6 +204,8 @@ function createNegativeBarChart(targetData) {
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0]);
 
+	// note - this event will repeat as many times as it is clicked or in focus
+	// how can we make it only occur once
 	g.selectAll(".bar")
 		.on("focus", function(){
 			let dataValue = d3.select(this).attr("data-value");
@@ -461,3 +463,7 @@ getData();
 // 1 - add transitions
 // 2 - add tooltip, remove focus/click event
 // 3 - fix chart removal process
+
+// issues
+// 1 - the data value event in bar charts repeats, add tooltip or fix it
+// 2 - there are 3 stray g elements with the standard chart transform - where are these defined?
