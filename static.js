@@ -7,8 +7,8 @@ function getData() {
 	d3.json('data.json', function(data){
 			chartData = data;
 			return createChartEntryList(data);
-	})
-};
+	});
+}
 
 //create chart list on landing
 function createChartEntryList(data){
@@ -407,9 +407,7 @@ function createMultiSeriesLineChart(targetData){
 //create title elemment for selected chart
 function createTitle(targetData){
 	//define chart constants
-	let svg = d3.select(".chart"),
-	margin = {top: 70, right: 20, bottom: 40, left: 50},
-	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+	let svg = d3.select(".chart");
 
 	let title = svg.append("g")
 		.attr("class", "chart-title");
@@ -424,9 +422,7 @@ function createTitle(targetData){
 //create subtitle element for selected chart
 function createSubtitle(targetData){
 	//define chart constants
-	let svg = d3.select(".chart"),
-	margin = {top: 70, right: 20, bottom: 40, left: 50},
-	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+	let svg = d3.select(".chart");
 
 	let subtitle = svg.append("g")
 		.attr("class", "chart-subtitle");
@@ -442,9 +438,7 @@ function createSubtitle(targetData){
 //create source element for selected chart
 function createSource(targetData){
 	//define chart constants
-	let svg = d3.select(".chart"),
-	margin = {top: 70, right: 20, bottom: 40, left: 50},
-	g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+	let svg = d3.select(".chart");
 
 	let source = svg.append("g")
 		.attr("class", "source");
@@ -466,4 +460,3 @@ getData();
 
 // issues
 // 1 - the data value event in bar charts repeats, add tooltip or fix it
-// 2 - there are 3 stray g elements with the standard chart transform - where are these defined?
