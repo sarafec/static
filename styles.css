@@ -6,8 +6,7 @@ body {
 .title {
 	font-size: 40px;
 	text-align: center;
-		font-family: 'Archivo', sans-serif;
-
+	font-family: 'Archivo', sans-serif;
 }
 
 .chart-container {
@@ -60,4 +59,12 @@ body {
 .chart-entry:focus {
 	background-color: #e0e0e0;
 	outline:1px solid #ccc; 
+}
+
+.tooltip {
+	background-color: #f0f0f0;
+	font-family: 'Archivo', sans-serif;
+	padding: 4px;
+	border-radius: 3px;
+	color: #303030;
 }

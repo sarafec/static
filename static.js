@@ -2,6 +2,19 @@
 let chartData;
 let currentChart;
 
+//tooltip element
+let tooltip = d3.select('.chart-container')
+	.append('div')
+	.attr('class', 'tooltip')
+	.style('position', 'absolute')
+	.style('z-index', '10')
+	.style('visibility', 'hidden');
+
+//get value for tooltip
+function getToolTipVal(data){
+	return data.value;
+}
+
 //load data
 function getData() {
 	d3.json('data.json', function(data){
@@ -132,24 +145,13 @@ function createSimpleBarChart(targetData){
 		.attr("tabindex", 0)
 		.attr("height", function(d) { return height - y(d.value) ;})
 		.attr("width", x.bandwidth())
-		.style("fill", targetData.colors[0]);
+		.style("fill", targetData.colors[0])
+		.on('mouseover', function(d) { return tooltip.style('visibility', 'visible'); })
+		.on('mousemove', function(d, i) { return tooltip.style('top', (d3.event.pageY - 10) + 'px').style('left', (d3.event.pageX + 10) + 'px').html(getToolTipVal(d)) })
+		.on('mouseout', function(d) { return tooltip.style('visibility', 'hidden'); });
 
 	g.selectAll(".x-axis text")
 		.style("transform", "translateY(10px) rotate(-15deg)");
-
-	g.selectAll(".bar")
-		.on("focus", function(){
-			let dataValue = d3.select(this).attr("data-value");
-			let xVal = d3.select(this).attr("x");
-			let yVal = (d3.select(this).attr("y") - 5);
-
-			let dataLabel = g.append("text")
-				.attr("class", "chart-label")
-				.attr("x", xVal)
-				.attr("y", yVal)
-				.style("font", "15px Archivo")
-				.text(dataValue);
-		});
 }
 
 //create bar chart for only negative values
@@ -455,8 +457,4 @@ getData();
 
 // todo
 // 1 - add transitions
-// 2 - add tooltip, remove focus/click event
-// 3 - fix chart removal process
-
-// issues
-// 1 - the data value event in bar charts repeats, add tooltip or fix it
+// 2 - add tooltips for other charts + accessibility
