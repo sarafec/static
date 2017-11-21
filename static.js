@@ -2,14 +2,6 @@
 let chartData;
 let currentChart;
 
-//tooltip element
-let tooltip = d3.select('.chart-container')
-	.append('div')
-	.attr('class', 'tooltip')
-	.style('position', 'absolute')
-	.style('z-index', '10')
-	.style('visibility', 'hidden');
-
 //get value for tooltip
 function getToolTipVal(data){
 	return data.value;
@@ -112,6 +104,14 @@ function createSimpleBarChart(targetData){
 		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
+	let tooltip = d3.select('.chart')
+		.append('text')
+		.attr('class', 'tooltip')
+		.style('position', 'absolute')
+		.style('z-index', '10')
+		.style('visibility', 'hidden');
+
+
 	//define scales
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 			y = d3.scaleLinear().rangeRound([height, 0]);
@@ -147,7 +147,12 @@ function createSimpleBarChart(targetData){
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0])
 		.on('mouseover', function(d) { return tooltip.style('visibility', 'visible'); })
-		.on('mousemove', function(d, i) { return tooltip.style('top', (d3.event.pageY - 10) + 'px').style('left', (d3.event.pageX + 10) + 'px').html(getToolTipVal(d)) })
+		.on('mousemove', function(d, i) {
+					return tooltip
+					.attr('x', +d3.select(this).attr('x') + x.bandwidth())
+					.attr('y', +d3.select(this).attr('y') + 65)
+					.text(getToolTipVal(d)) 
+		})
 		.on('mouseout', function(d) { return tooltip.style('visibility', 'hidden'); });
 
 	g.selectAll(".x-axis text")
