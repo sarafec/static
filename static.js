@@ -462,4 +462,5 @@ getData();
 
 // todo
 // 1 - add transitions
-// 2 - add tooltips for other charts + accessibility
+// 2 - normalize tooltips between charts
+// 3 - pull chart functions out into smaller methods
