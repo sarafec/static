@@ -3,12 +3,14 @@ body {
 	margin: 5px;
 }
 
+/* HEADER STYLES */
 .title {
 	font-size: 40px;
 	text-align: center;
 	font-family: 'Archivo', sans-serif;
 }
 
+/* CHART STYLES */
 .chart-container {
 	display: inline-block;
 	height: 30%;
@@ -22,6 +24,11 @@ body {
 	border-left: 1.5px solid #ccc;
 }
 
+.axis.ticks {
+	display: unset;
+}
+
+/* CHART LIST */
 .chart-library {
 	overflow-y: scroll;
 	height: 300px;
@@ -31,10 +38,6 @@ body {
 	margin-bottom: 20px;
 	border-top: 1.5px solid #ccc;
 	border-bottom: 1.5px solid #ccc;
-}
-
-.axis.ticks {
-	display: unset;
 }
 
 .chart-entry {
@@ -53,6 +56,7 @@ body {
 	outline:1px solid #ccc; 
 }
 
+/* TOOLTIP STYLES */
 .tooltip {
 	background-color: #f0f0f0;
 	font-family: 'Archivo', sans-serif;
