@@ -111,6 +111,10 @@ function createSimpleBarChart(targetData){
 		.style('z-index', '10')
 		.style('visibility', 'hidden');
 
+	let transition = d3.transition()
+		.duration(750)
+		.ease(d3.easeLinear);
+
 
 	//define scales
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
@@ -140,10 +144,10 @@ function createSimpleBarChart(targetData){
 		.append("rect")
 		.attr("class", "bar")
 		.attr("x", function(d) { return x(d.country); })
-		.attr("y", function(d) { return y(d.value); })
+		.attr("y", function(d) { return y(0); })
 		.attr("data-value", function(d) { return d.value; })
 		.attr("tabindex", 0)
-		.attr("height", function(d) { return height - y(d.value) ;})
+		.attr("height", 0)
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0])
 		.on('mouseover', function(d) { return tooltip.style('visibility', 'visible'); })
@@ -151,9 +155,12 @@ function createSimpleBarChart(targetData){
 					return tooltip
 					.attr('x', +d3.select(this).attr('x') + x.bandwidth())
 					.attr('y', +d3.select(this).attr('y') + 65)
-					.text(getToolTipVal(d)) 
+					.text(getToolTipVal(d))
 		})
-		.on('mouseout', function(d) { return tooltip.style('visibility', 'hidden'); });
+		.on('mouseout', function(d) { return tooltip.style('visibility', 'hidden'); })
+		.transition(transition)
+		.attr("y", function(d) { return y(d.value); })
+		.attr("height", function(d) { return height - y(d.value) ;});
 
 	g.selectAll(".x-axis text")
 		.style("transform", "translateY(10px) rotate(-15deg)");
@@ -461,6 +468,6 @@ function createSource(targetData){
 getData();
 
 // todo
-// 1 - add transitions
+// 1 - normalize transitions
 // 2 - normalize tooltips between charts
 // 3 - pull chart functions out into smaller methods
