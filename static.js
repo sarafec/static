@@ -445,3 +445,7 @@ function createSource(targetData){
 
 //kick off xhr
 getData();
+
+// todos
+// 1 - add init transitions for charts
+// 2 - refactor and reuse svg elements, where possible
