@@ -2,11 +2,6 @@
 let chartData;
 let currentChart;
 
-//get value for tooltip
-function getToolTipVal(data){
-	return data.value;
-}
-
 //load data
 function getData() {
 	d3.json('data.json', function(data){
@@ -104,13 +99,6 @@ function createSimpleBarChart(targetData){
 		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
-	let tooltip = d3.select('.chart')
-		.append('text')
-		.attr('class', 'tooltip')
-		.style('position', 'absolute')
-		.style('z-index', '10')
-		.style('visibility', 'hidden');
-
 	let transition = d3.transition()
 		.duration(750)
 		.ease(d3.easeLinear);
@@ -150,15 +138,6 @@ function createSimpleBarChart(targetData){
 		.attr("height", 0)
 		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0])
-		.on('mouseover', function(d) { return tooltip.style('visibility', 'visible'); })
-		.on('mousemove', function(d, i) {
-					return tooltip
-					.attr('x', +d3.select(this).attr('x') + x.bandwidth())
-					.attr('y', +d3.select(this).attr('y') + 65)
-					.text(getToolTipVal(d))
-		})
-		.on('mouseout', function(d) { return tooltip.style('visibility', 'hidden'); })
-		.transition(transition)
 		.attr("y", function(d) { return y(d.value); })
 		.attr("height", function(d) { return height - y(d.value) ;});
 
@@ -466,8 +445,3 @@ function createSource(targetData){
 
 //kick off xhr
 getData();
-
-// todo
-// 1 - normalize transitions
-// 2 - normalize tooltips between charts
-// 3 - pull chart functions out into smaller methods
