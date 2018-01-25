@@ -134,10 +134,10 @@ function createSimpleBarChart(targetData){
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", function(d) { return y(0); })
 		.attr("data-value", function(d) { return d.value; })
-		.attr("tabindex", 0)
 		.attr("height", 0)
-		.attr("width", x.bandwidth())
 		.style("fill", targetData.colors[0])
+		.attr("width", x.bandwidth())
+		.transition(transition)
 		.attr("y", function(d) { return y(d.value); })
 		.attr("height", function(d) { return height - y(d.value) ;});
 
@@ -154,6 +154,10 @@ function createNegativeBarChart(targetData) {
 		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
 
+
+	let transition = d3.transition()
+		.duration(750)
+		.ease(d3.easeLinear);
 
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 		y = d3.scaleLinear().rangeRound([0, height]);
@@ -188,31 +192,15 @@ function createNegativeBarChart(targetData) {
 		.enter()
 		.append("rect")
 		.attr("class", "bar")
-		.attr("x", function(d) { return x(d.country); })
-		.attr("y", 0)
 		.attr("data-value", function(d) { return d.value; })
-		.attr("tabindex", 0)
-		.attr("height", function(d) { return y(d.value);})
+		.attr("x", function(d) { return x(d.country); })
+		.attr("y", y(0))
+		.attr("height", 0)
 		.attr("transform", "translate(0, 20)")
 		.attr("width", x.bandwidth())
-		.style("fill", targetData.colors[0]);
-
-	// note - this event will repeat as many times as it is clicked or in focus
-	// how can we make it only occur once
-	g.selectAll(".bar")
-		.on("focus", function(){
-			let dataValue = d3.select(this).attr("data-value");
-			let xVal = d3.select(this).attr("x");
-			let yVal = d3.select(this).attr("height");
-
-			let dataLabel = g.append("text")
-				.attr("class", "chart-label")
-				.attr("x", xVal)
-				.attr("y", yVal)
-				.attr("transform", "translate(0, 36)")
-				.style("font", "15px Archivo")
-				.text(dataValue);
-		});
+		.style("fill", targetData.colors[0])
+		.transition(transition)
+		.attr("height", function(d) { return y(d.value);});
 }
 
 //create chart that calculates and stacks the larger value - only works for binary inputs, such as male and female
@@ -223,6 +211,10 @@ function createPopulationBarChart(targetData){
 		width = 600 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," +margin.top + ")");
+
+	let transition = d3.transition()
+		.duration(750)
+		.ease(d3.easeLinear);
 
 	let x = d3.scaleBand().rangeRound([0, width]).padding(0.05),
 			y = d3.scaleLinear().rangeRound([height, 0]);
@@ -254,9 +246,9 @@ function createPopulationBarChart(targetData){
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", function(d, i) { return y(evaluateSecondaryPopVals(i)); })
 		.attr("tabindex", 0)
-		.attr("height", function(d, i) { return height - y(evaluateSecondaryPopVals(i)); })
+		.style("fill", function(d, i) { return evaluateSecondaryColorVals(i); })
 		.attr("width", x.bandwidth())
-		.style("fill", function(d, i) { return evaluateSecondaryColorVals(i); });
+		.attr("height", function(d, i) { return height - y(evaluateSecondaryPopVals(i)); });
 
 	g.selectAll(".bar1")
 		.data(targetData.data)
@@ -265,9 +257,11 @@ function createPopulationBarChart(targetData){
 		.attr("class", "bar1")
 		.attr("x", function(d) { return x(d.country); })
 		.attr("y", function(d, i) { return y(evaluatePrimaryPopVals(i)); })
-		.attr("height", function(d, i) { return height - y(evaluatePrimaryPopVals(i)) ;})
 		.attr("width", x.bandwidth())
-		.style("fill", targetData.colors[0]);
+		.style("fill", targetData.colors[0])
+		.attr("width", x.bandwidth())
+		.attr("height", function(d, i) { return height - y(evaluatePrimaryPopVals(i)) ;});
+
 
 	let legend = g.append("g")
 		.attr("font-family", "sans-serif")
@@ -447,5 +441,5 @@ function createSource(targetData){
 getData();
 
 // todos
-// 1 - add init transitions for charts
+// 1 - add init transitions for line charts and stacked bar charts
 // 2 - refactor and reuse svg elements, where possible
